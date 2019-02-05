@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
@@ -14,6 +15,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private int delay = 1000;
     private Timer timer;
+
+    Random random = new Random();
+
+    private int blockposX = random.nextInt(692);
+    private int blockposY = 1;
 
     public Gameplay(){
 
@@ -28,6 +34,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         //background
         g.setColor(Color.black);
         g.fillRect(1,1,692,592);
+
+        g.setColor(Color.red);
+        g.fillRect(blockposX, blockposY, 30, 70);
 
     }
 
