@@ -13,13 +13,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean play = true;
     private int score = 0;
 
-    private int delay = 1000;
+    private int delay = 5;
     private Timer timer;
 
     Random random = new Random();
 
     private int blockposX = random.nextInt(692);
     private int blockposY = 1;
+    private int blockYdir = 1;
 
     public Gameplay(){
 
@@ -38,14 +39,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.red);
         g.fillRect(blockposX, blockposY, 30, 70);
 
+        g.dispose();
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    timer.start();
-    if(play){
-        
-    }
+        timer.start();
+        blockposY += blockYdir;
+
+        repaint();
     }
 
     @Override
@@ -55,11 +58,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+            blockposX+=20;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_LEFT)
+        {
+            blockposX-=20;
+        }
 
+        repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
     }
+
 }
