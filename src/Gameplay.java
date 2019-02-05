@@ -18,7 +18,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     Random random = new Random();
 
-    private int blockposX = random.nextInt(692);
+    private int blockposX = random.nextInt(700);
     private int blockposY = 1;
     private int blockYdir = 1;
 
@@ -34,7 +34,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     public void paint(Graphics g){
         //background
         g.setColor(Color.black);
-        g.fillRect(1,1,692,592);
+        g.fillRect(1,1,700,600);
 
         g.setColor(Color.red);
         g.fillRect(blockposX, blockposY, 30, 70);
@@ -46,8 +46,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         timer.start();
-        blockposY += blockYdir;
+        if(play) {
+            blockposY += blockYdir;
 
+            if (blockposY > 495) {
+
+                blockposX = random.nextInt(700);
+                blockposY = 1;
+            }
+
+
+        }
         repaint();
     }
 

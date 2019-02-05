@@ -11,7 +11,7 @@ public class main {
 
         JFrame obj = new JFrame();
         Gameplay = new Tetris.Gameplay();
-        obj.setBounds(10,10,700,600);
+        obj.setBounds(10,10,708,608);
         obj.setTitle("Tetris");
         obj.setResizable(false);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
