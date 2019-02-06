@@ -15,7 +15,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean play = true;
     private int score = 0;
 
-    private int delay = 3;
+    private int delay = 200;
     private Timer timer;
 
     Random random = new Random();
@@ -23,7 +23,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private int blockposX = 400;
     private int blockposY = 0;
-    private int blockYdir = 1;
+    private int blockYdir = 30;
     private int blockCount = 0;
     private int[] blockposX2 = new int[1000];
     private int[] blockposY2 = new int[1000];
@@ -52,7 +52,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
         if(flag == 0)
         {
-            num = random.nextInt(1) + 1;
+            num = random.nextInt(2) + 1;
             counter[x] = num;
             x++;
             flag = 1;
@@ -130,27 +130,42 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         timer.start();
         if (play) {
             blockposY += blockYdir;
-            for(int i=0; i<1000; i++)
-            {
-                for(int j=0; j<4; j++) {
-                    if (num == 1 && (blockposY > 446 || blockposY == posY[i][j])){
-                        Rysowanie_koncowe();
-                        Zapisywanie_polozenia();
-                    }
 
-                    if ((num == 2 || num == 5) && blockposY > 476) {
-                        Rysowanie_koncowe();
-                    }
+for(int i=0; i<1000; i++)
+{
+    for(int j=0; j<4; j++) {
 
-                    if ((num == 3 || num == 4) && blockposY > 506) {
-                        Rysowanie_koncowe();
-                    }
-                }
-            }
-
+        //kolizja dla pionowego
+        if (new Rectangle(blockposX, blockposY, 30, 30).intersects(new Rectangle(posX[i][j], posY[i][j], 30, 30))) {
+            Zapisywanie_polozenia();
+            Rysowanie_koncowe();
         }
+        //kolizje dla krzesla
+        if(num==2 &&(new Rectangle(blockposX, blockposY+30, 30, 30).intersects(new Rectangle(posX[i][j], posY[i][j], 30, 30)))
+        {
+            
+        }
+    }
+}
+        if (num == 1 && (blockposY > 446)) {
+            Zapisywanie_polozenia();
+            Rysowanie_koncowe();
+        }
+
+        if ((num == 2 || num == 5) && blockposY > 476) {
+            Zapisywanie_polozenia();
+            Rysowanie_koncowe();
+        }
+
+        if ((num == 3 || num == 4) && blockposY > 506) {
+            Rysowanie_koncowe();
+        }
+
+    }
+
             repaint();
     }
+
 
 // Odnawianie początkowego klocka
     private void Rysowanie_koncowe() {
@@ -168,13 +183,24 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
         if(num==1) {
             posX[count][0] = blockposX;
-            posY[count][0] = blockposY;
+            posY[count][0] = blockposY-120;
             posX[count][1] = blockposX;
-            posY[count][1] = blockposY+30;
+            posY[count][1] = blockposY-90;
             posX[count][2] = blockposX;
-            posY[count][2] = blockposY+60;
+            posY[count][2] = blockposY-60;
             posX[count][3] = blockposX;
-            posY[count][3] = blockposY+90;
+            posY[count][3] = blockposY;
+        }
+
+        if(num==2){
+            posX[count][0] = blockposX;
+            posY[count][0] = blockposY-60;
+            posX[count][1] = blockposX-30;
+            posY[count][1] = blockposY-60;
+            posX[count][2] = blockposX;
+            posY[count][2] = blockposY;
+            posX[count][3] = blockposX-30;
+            posY[count][3] = blockposY-90;
         }
         count++;
     }
