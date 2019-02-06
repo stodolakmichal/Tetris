@@ -11,6 +11,6 @@ public class MapGenerator {
     }
 
     public void draw(Graphics g){
-        
+
     }
 }
