@@ -56,7 +56,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         }
 
         Rysuj(g, num);
-
         RandomBlock(g, num);
 
 //        g.setColor(Color.red);
@@ -65,7 +64,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.dispose();
 
     }
-    public void Rysuj(Graphics g, int num)
+    //Rysowanie położonych klocków
+    void Rysuj(Graphics g, int num)
     {
         for(int i=0; i<blockCount; i++) {
             if (counter[i] ==1) {
@@ -91,7 +91,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
 
-
+// Losowanie i początkowe rysowanie klocków
     public void RandomBlock(Graphics g, int number)
     {
         if(number == 1)
@@ -125,29 +125,24 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         timer.start();
         if (play) {
             blockposY += blockYdir;
-            if (num == 1) {
-                if (blockposY > 446) {
+            if (num == 1 && blockposY>446) {
                     Rysowanie_koncowe();
-                }
+
             }
 
-            if (num == 2 || num == 5
-            ) {
-                if (blockposY > 476) {
+            if ((num == 2 || num == 5) && blockposY > 476) {
                     Rysowanie_koncowe();
-                }
             }
 
-            if(num==3 || num==4) {
-                if (blockposY > 506) {
+            if((num==3 || num==4) && blockposY > 506) {
                     Rysowanie_koncowe();
-                }
             }
 
         }
             repaint();
     }
 
+// Odnawianie początkowego klocka
     private void Rysowanie_koncowe() {
         blockposX2[blockCount] = blockposX;
         blockposY2[blockCount] = blockposY;
@@ -167,10 +162,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             blockposX+=30;
+            if(blockposX>630)
+            {
+                blockposX=630;
+            }
         }
         if(e.getKeyCode()==KeyEvent.VK_LEFT)
         {
             blockposX-=30;
+            if(blockposX<0)
+            {
+                blockposX=0;
+            }
         }
         if(e.getKeyCode()==KeyEvent.VK_DOWN)
         {
