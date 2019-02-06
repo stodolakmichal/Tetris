@@ -31,6 +31,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     int x=0;
     private int[] counter = new int [1000];
 
+    private int[][] posX = new int[1000][4];
+    private int[][] posY = new int[1000][4];
+
     private int num =0;
 
     public Gameplay(){
@@ -49,14 +52,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
         if(flag == 0)
         {
-            num = random.nextInt(5) + 1;
+            num = random.nextInt(1) + 1;
             counter[x] = num;
             x++;
             flag = 1;
         }
 
-        Rysuj(g, num);
+
         RandomBlock(g, num);
+        Rysuj(g, num);
 
 //        g.setColor(Color.red);
 //        g.fillRect(blockposX, blockposY, 30, 30);
@@ -97,6 +101,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if(number == 1)
         {
             blocks.pionowy(g, blockposX, blockposY);
+
         }
 
         if(number == 2)
@@ -125,17 +130,22 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         timer.start();
         if (play) {
             blockposY += blockYdir;
-            if (num == 1 && blockposY>446) {
-                    Rysowanie_koncowe();
+            for(int i=0; i<1000; i++)
+            {
+                for(int j=0; j<4; j++) {
+                    if (num == 1 && (blockposY > 446 || blockposY == posY[i][j])){
+                        Rysowanie_koncowe();
+                        Zapisywanie_polozenia();
+                    }
 
-            }
+                    if ((num == 2 || num == 5) && blockposY > 476) {
+                        Rysowanie_koncowe();
+                    }
 
-            if ((num == 2 || num == 5) && blockposY > 476) {
-                    Rysowanie_koncowe();
-            }
-
-            if((num==3 || num==4) && blockposY > 506) {
-                    Rysowanie_koncowe();
+                    if ((num == 3 || num == 4) && blockposY > 506) {
+                        Rysowanie_koncowe();
+                    }
+                }
             }
 
         }
@@ -150,6 +160,23 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         blockposY = 0;
         blockCount++;
         flag = 0;
+    }
+
+    int count = 0;
+
+    private void Zapisywanie_polozenia(){
+
+        if(num==1) {
+            posX[count][0] = blockposX;
+            posY[count][0] = blockposY;
+            posX[count][1] = blockposX;
+            posY[count][1] = blockposY+30;
+            posX[count][2] = blockposX;
+            posY[count][2] = blockposY+60;
+            posX[count][3] = blockposX;
+            posY[count][3] = blockposY+90;
+        }
+        count++;
     }
 
 
