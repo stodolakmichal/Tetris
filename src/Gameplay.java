@@ -30,6 +30,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     int flag = 0;
     int x=0;
     private int[] counter = new int [1000];
+    private int[] hiredblockposX = new int[1000];
+    private int[] hiredblockposY = new int[1000];
+
+    private int[][] position = new int [1000][1000];
 
     private int num =0;
 
@@ -92,7 +96,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 
 
-    public void RandomBlock(Graphics g, int number)
+    public void RandomBlock(Graphics g, int number) //
     {
         if(number == 1)
         {
@@ -125,22 +129,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         timer.start();
         if (play) {
             blockposY += blockYdir;
-            if (num == 1) {
-                if (blockposY > 446) {
-                    Rysowanie_koncowe();
-                }
-            }
+            for(int i=0; i<blockCount+1; i++)
+                {
+                if (num == 1 && (blockposY > 446 || blockposX2[i]==blockposX || blockposY2[i] == blockposY)){
+                        Rysowanie_koncowe();
 
-            if (num == 2 || num == 5
-            ) {
-                if (blockposY > 476) {
-                    Rysowanie_koncowe();
                 }
-            }
 
-            if(num==3 || num==4) {
-                if (blockposY > 506) {
-                    Rysowanie_koncowe();
+                if (num == 2 || num == 5 && (blockposX2[i]==blockposX || blockposY2[i] == blockposY || blockposY > 476)) {
+                        Rysowanie_koncowe();
+                    }
+
+
+                if(num==3 || num==4 && (blockposY > 506 || blockposX2[i]==blockposX || blockposY2[i] == blockposY)) {
+                        Rysowanie_koncowe();
                 }
             }
 
